@@ -4,10 +4,10 @@ public:
         int n = nums.size();
         int sum = n*(n+1)/2;
         
-
-        for(int i = 0; i < n; i++){
-            sum -= nums[i];
-        }
-        return sum;
+        return sum - accumulate(nums.begin(), nums.end(), 0);
+        // for(int i = 0; i < n; i++){
+        //     sum -= nums[i];
+        // }
+        // return sum;
     }
 };
