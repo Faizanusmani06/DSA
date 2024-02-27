@@ -12,7 +12,7 @@
 class Solution {
 public:
     int height(TreeNode* root, int &diameter) {
-        if (root == nullptr) return 0;
+        if(root == nullptr) return 0;
 
         int lh = height(root->left, diameter);
         int rh = height(root->right, diameter);
