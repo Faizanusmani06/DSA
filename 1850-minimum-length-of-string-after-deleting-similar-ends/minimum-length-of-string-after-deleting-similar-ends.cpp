@@ -4,7 +4,7 @@ public:
         int n = s.size();
         int i = 0, j = n-1;
         
-        if(s[i] != s[j]) return j-i+1;
+        if(s[i] != s[j]) return n;
         while(i <= j) {
 
             if(i==j) return 1;
