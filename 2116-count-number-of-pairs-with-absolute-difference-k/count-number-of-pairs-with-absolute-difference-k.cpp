@@ -1,17 +1,14 @@
 class Solution {
 public:
     int countKDifference(vector<int>& nums, int k) {
-        unordered_map<int, int> mp;
-
-        int ans = 0;
-        int n = nums.size();
-
         int cnt = 0;
-        for(int i = n-1; i >= 0; i--) {
-            if(mp[nums[i] + k]) cnt += mp[nums[i]+k];
-            if(mp[nums[i] - k]) cnt += mp[nums[i]-k];
-            mp[nums[i]]++;
+
+        for(int i = 0; i < nums.size()-1; i++) {
+            for(int j = i+1; j < nums.size(); j++) {
+                if(abs(nums[i] - nums[j]) == k) cnt++;
+            }
         }
+
 
         return cnt;
     }
