@@ -17,22 +17,17 @@ public:
         while(a--) {
             it1 = it1->next;;
         }
-        cout << it1->val << " ";
         auto it2 = it1;
         while(b--) {
             it2 = it2->next;;
         }
 
-        cout << it2->val << " ";
 
         it1->next = list2;
 
-        cout << list2->val << endl;
         while(list2->next != nullptr) {
             list2 = list2->next;
         }
-
-        cout << list2->val << endl;
 
         list2->next = it2->next;
         it2->next = nullptr;
