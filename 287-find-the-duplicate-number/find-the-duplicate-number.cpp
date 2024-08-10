@@ -1,23 +1,13 @@
 class Solution {
 public:
     int findDuplicate(vector<int>& nums) {
-        // floyd's cycle detection 
+        map<int, int> mp;
 
-        int slow = nums[0];
-        int fast = nums[0];
-
-        do {
-            slow = nums[slow];
-            fast = nums[nums[fast]];
-        }while(slow != fast);
-
-        slow = nums[0];
-
-        while(slow != fast) {
-            slow = nums[slow];
-            fast = nums[fast];
+        for(auto i : nums) {
+            mp[i]++;
+            if(mp[i] > 1) return i;
         }
 
-        return fast;
+        return -1;
     }
 };
