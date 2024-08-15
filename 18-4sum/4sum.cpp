@@ -1,37 +1,32 @@
-
-
 class Solution {
-
-long long mod = LLONG_MAX;
 public:
     vector<vector<int>> fourSum(vector<int>& nums, int target) {
-        set<vector<int>> ans;
         sort(nums.begin(), nums.end());
+        vector<vector<int>> results;
+
         int n = nums.size();
-        if(n < 4) return {};
-        for(int i = 0; i < n-3; i++) {
-            for(int j = i+1; j < n-2; j++) {
-                int k = j+1;
-                int l = n-1;
-
-                while(k < l) {
-                    long long curSum = ((((nums[i] + nums[j]) % mod + nums[k]) % mod) % mod + nums[l]) % mod;
-
-                    if(curSum == target) {
-                        ans.insert({nums[i],  nums[j], nums[k], nums[l]});
-                        k++;
-                    }else if(curSum < target) k++;
-                    else l--;
+        for (int i = 0; i < n - 3; ++i) {
+            if (i > 0 && nums[i] == nums[i - 1]) continue; // Skip duplicates
+            for (int j = i + 1; j < n - 2; ++j) {
+                if (j > i + 1 && nums[j] == nums[j - 1]) continue; // Skip duplicates
+                int left = j + 1, right = n - 1;
+                while (left < right) {
+                    long long total = static_cast<long long>(nums[i]) + nums[j] + nums[left] + nums[right];
+                    if (total == target) {
+                        results.push_back({nums[i], nums[j], nums[left], nums[right]});
+                        ++left;
+                        --right;
+                        while (left < right && nums[left] == nums[left - 1]) ++left; // Skip duplicates
+                        while (left < right && nums[right] == nums[right + 1]) --right; // Skip duplicates
+                    } else if (total < target) {
+                        ++left;
+                    } else {
+                        --right;
+                    }
                 }
             }
         }
 
-        vector<vector<int>> res;
-
-        for(auto i: ans) {
-            res.push_back(i);
-        }
-
-        return res;
+        return results;
     }
 };
