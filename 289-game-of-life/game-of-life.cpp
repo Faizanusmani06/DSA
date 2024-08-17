@@ -1,7 +1,7 @@
 class Solution {
 public:
     void gameOfLife(vector<vector<int>>& board) {
-        vector<vector<int>> dummy = board;
+
         // 0->1 = -1
         // 1->0 = -2;
         // 1->1 = -3;
