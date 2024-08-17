@@ -46,14 +46,7 @@ int countPairs(vector<int> &arr, int low, int mid, int high) {
     int right = mid + 1;
     int cnt = 0;
     for (int i = low; i <= mid; i++) {
-        // if(arr[right] > INT_MAX/2) continue;
-        // if(arr[right] < INT_MIN/2) {
-        //     cnt++;
-        //     continue;
-        // }
-
-        // long long val1 = (long long)(arr[i]);
-        // long long val2 = (long long)(2*arr[right]);
+       
         while (right <= high && (long long)arr[i] > (( (long long)arr[right] + (long long)arr[right]) )) right++;
         cnt += (right - (mid + 1));
     }
