@@ -1,23 +1,14 @@
 class Solution {
 public:
-    vector<int> twoSum(vector<int>& numbers, int target) 
-    {
-        int index1 = -1, index2 =-1;
-        vector<int>x(2,-1);
-        int i = 0, j = numbers.size()-1;
-        while(i<=j)
-        {
-            int sum = numbers[i]+numbers[j];
-            if(sum==target)
-            {
-                x[0]=i+1;
-                x[1]=j+1;
-                return x;
-            }
-            if(sum < target)i++;
-            else j--;
+    vector<int> twoSum(vector<int>& numbers, int target) {
+        map<int, int> mp;
+        mp[numbers[0]] = 1;
+
+        for(int i = 1; i < numbers.size(); i++) {
+            if(mp.find(target-numbers[i]) != mp.end()) return {mp[target-numbers[i]], i+1};
+            else mp[numbers[i]] = i+1;
         }
-        return x;
-        
+
+        return {};
     }
 };
