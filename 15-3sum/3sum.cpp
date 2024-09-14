@@ -1,35 +1,35 @@
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-       vector<vector<int>> ans;
+        vector<vector<int>> ans;
         sort(nums.begin(), nums.end());
-        int n = nums.size();
+        int s = nums.size();
+        if (s < 3)
+            return {};
 
-        if(n<3 || nums[0] > 0) return {};
+        for (int i = 0; i < s - 2; i++) {
+            if (nums[0] > 0)
+                break;
 
-    
-        for(int i = 0; i < n-2; i++) {
-            if(nums[i] > 0) break;
-            int j = i+1;
-            int k = n-1;
+            int j = i + 1, k = s - 1;
 
-            if(i>0 && nums[i] == nums[i-1]) continue;
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+
             while(j < k) {
-                int curSum = nums[i] + nums[j] + nums[k];
-                if(curSum == 0) {
-                    ans.push_back({nums[i], nums[j], nums[k]});
-                    int last_j = nums[j];
-                    int last_k = nums[k];
+                int sum = nums[i] + nums[j] + nums[k];
 
-                    while(j < k && last_j == nums[j]) j++;
-                    while(j < k && last_k == nums[k]) k--;
-                }
-                else if(curSum > 0) k--;
-                else j++;
+                if(sum == 0) {
+                    ans.push_back({nums[i], nums[j++], nums[k--]});
+
+                    while(j < s && nums[j] == nums[j-1]) j++;
+                    while(k >= 0 && nums[k] == nums[k+1]) k--;
+
+                }else if(sum < 0) j++;
+                else k--;
             }
-
         }
-        
+
         return ans;
     }
 };
