@@ -1,16 +1,4 @@
 class Solution {
-    bool bSearch(vector<int> &arr, int x) {
-        int low = 0, high = arr.size() - 1;
-
-        while(low <= high) {
-            int mid = low + (high - low) / 2;
-
-            if(arr[mid] == x) return true;
-            else if(arr[mid] > x) high = mid - 1;
-            else low = mid + 1;
-        }
-        return false;
-    }
 public:
     vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
         vector<int> ans;
