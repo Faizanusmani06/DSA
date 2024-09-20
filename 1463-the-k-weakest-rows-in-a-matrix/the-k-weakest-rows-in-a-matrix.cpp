@@ -3,7 +3,7 @@ public:
     vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
         int m = mat.size();
         int n = mat[0].size();
-        map<pair<int, int>, int> mp;
+        set<pair<int, int>> st;
         for(int i = 0; i < m; i++) {
             
             int low = 0, high = n-1;
@@ -14,11 +14,11 @@ public:
                 else low = mid + 1;
             }
 
-            mp[{high, i}] = i;
+            st.insert({high, i});
 
         }
         vector<int> ans;
-        for(auto it : mp) {
+        for(auto it : st) {
             if(!k) break;
             ans.push_back(it.second);
             k--;
