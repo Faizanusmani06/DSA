@@ -1,6 +1,7 @@
 class Solution {
     double solve(double n) {
         cout << n << endl;
+        if(int(n) != n) return false;
         if(n <= 3) {
             if(n == 3 ) return 1;
             else return 0;
