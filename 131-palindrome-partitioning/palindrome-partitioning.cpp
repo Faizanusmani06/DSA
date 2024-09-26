@@ -14,7 +14,6 @@ class Solution {
 
         for(int i = ind; i < s.size(); i++) {
             if(isPalindrome(ind, i, s)) {
-                cout << i << endl;;
                 ds.push_back(s.substr(ind, i+1-ind));
                 solve(i+1, ds, ans, s);
                 ds.pop_back();
