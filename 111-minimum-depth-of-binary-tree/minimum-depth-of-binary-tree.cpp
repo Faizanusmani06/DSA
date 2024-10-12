@@ -10,22 +10,14 @@
  * };
  */
 class Solution {
-    void solve(TreeNode* root, int ans, int &depth) {
-        if(!root) return;
-        if(!root->left && !root->right) {
-            depth = min(depth, ans);
-            return;
-        }
-
-        solve(root->left, ans+1, depth);
-        solve(root->right, ans+1, depth);
-    }
+    
 public:
     int minDepth(TreeNode* root) {
         if(!root) return 0;
-        int depth = INT_MAX;
-        solve(root, 1, depth);
-        return depth;
+        if(!root->left) return 1 + minDepth(root->right);
+        if(!root->right) return 1 + minDepth(root->left);
+
+        return 1 + min(minDepth(root->left), minDepth(root->right));
         
     }
 };
