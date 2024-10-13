@@ -14,23 +14,20 @@ class Solution {
         if(!root) return;
 
         if(!root->left && !root->right) {
-            path = path + "->" + to_string(root->val);
+            path += to_string(root->val);
             ans.push_back(path);
         }
-        solve(root->left, path + "->" + to_string(root->val), ans);
-        solve(root->right, path + "->" + to_string(root->val), ans);
+        solve(root->left, path  + to_string(root->val) + "->", ans);
+        solve(root->right, path + to_string(root->val) + "->", ans);
     }
 public:
     vector<string> binaryTreePaths(TreeNode* root) {
         if(!root) return {""};
         vector<string> ans;
-        string path = to_string(root->val);
-        if(!root->left && !root->right) {
-            ans.push_back(path);
-            return ans;
-        }
-        solve(root->left, path, ans);
-        solve(root->right, path, ans);
+        string path = "";
+        
+        solve(root, path, ans);
+        
         return ans;
     }
 };
