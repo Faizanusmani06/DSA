@@ -10,18 +10,14 @@
  * };
  */
 class Solution {
-private:
-    TreeNode* helper(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int>& inMap) {
+    TreeNode* buildTree(vector<int> &preorder, int preStart, int preEnd, vector<int> &inorder, int inStart, int inEnd, map<int, int> &inMap) {
+       
         if(preStart > preEnd || inStart > inEnd) return nullptr;
-
         TreeNode* root = new TreeNode(preorder[preStart]);
-
-        int inRoot = inMap[root->val];
-
-        int numsLeft = inRoot - inStart;
-
-        root->left = helper(preorder, preStart+1, preStart+numsLeft, inorder, inStart, inStart + numsLeft, inMap);
-        root->right = helper(preorder, preStart+numsLeft+1, preEnd, inorder, inRoot+1, inEnd, inMap);
+        int inLeft = inMap[root->val] - inStart;
+        
+        root->left = buildTree(preorder, preStart+1, preStart + inLeft, inorder, inStart, inStart + inLeft-1, inMap);
+        root->right = buildTree(preorder, preStart+inLeft+1, preEnd, inorder, inLeft+inStart+1, inEnd, inMap);
 
         return root;
     }
@@ -33,7 +29,8 @@ public:
             inMap[inorder[i]] = i;
         }
 
-        TreeNode* Tree = helper(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1, inMap);
-        return Tree;
+        TreeNode* root = buildTree(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1, inMap);
+
+        return root;
     }
 };
