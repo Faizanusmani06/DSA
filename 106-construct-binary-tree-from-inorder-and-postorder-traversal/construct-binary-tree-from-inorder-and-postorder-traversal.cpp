@@ -10,34 +10,29 @@
  * };
  */
 class Solution {
-private: 
-    TreeNode* helper(vector<int> &inorder, int inStart, int inEnd, vector<int> &postorder, int postStart, int postEnd, map<int, int> &inMap) {
-        if(inStart > inEnd || postStart > postEnd) return nullptr;
+    TreeNode* buildTree(vector<int> &inorder, int inStart, int inEnd, vector<int> &postorder, int postStart, int postEnd, map<int, int> &inMap) {
+        if(postStart > postEnd || inStart > inEnd) return nullptr;
 
         TreeNode* root = new TreeNode(postorder[postEnd]);
+        int inLeft = inMap[root->val] - inStart;
 
-        int inRoot = inMap[postorder[postEnd]];
-
-        int numsLeft = inRoot - inStart;
-
-        root->left = helper(inorder, inStart, inRoot-1, postorder, postStart, postStart + numsLeft - 1, inMap);
-        root->right = helper(inorder, inRoot+1, inEnd, postorder, postStart + numsLeft, postEnd - 1, inMap);
+        root->left = buildTree(inorder, inStart, inStart + inLeft-1, postorder, postStart, postStart + inLeft - 1, inMap);
+        root->right = buildTree(inorder, inStart + inLeft + 1, inEnd, postorder, postStart + inLeft, postEnd - 1, inMap);
 
         return root;
     }
 public:
     TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        if (inorder.size() != postorder.size() || inorder.size() == 0 || postorder.size() == 0) {
-            return NULL;
-        }
-
+        if(inorder.size() != postorder.size()) return nullptr;
+        
         map<int, int> inMap;
 
         for(int i = 0; i < inorder.size(); i++) {
             inMap[inorder[i]] = i;
         }
 
-        return  helper(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1, inMap);
+        TreeNode* root = buildTree(inorder, 0, inorder.size()-1, postorder, 0, postorder.size()-1, inMap);
 
+        return root;
     }
 };
