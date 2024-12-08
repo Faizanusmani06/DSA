@@ -5,30 +5,32 @@ public:
 
         vector<vector<int>> adj(numCourses);
 
-        for(auto it: prerequisites) {
+        for (auto it : prerequisites) {
             adj[it[1]].push_back(it[0]);
         }
 
-        for(int i = 0; i <  numCourses; i++) {
-            for(auto it: adj[i]) {
+        for (int i = 0; i < numCourses; i++) {
+            for (auto it : adj[i]) {
                 inDegree[it]++;
             }
         }
 
-
         queue<int> q;
-        for(int i = 0; i < numCourses; i++) {
-            if(!inDegree[i]) q.push(i);
+        for (int i = 0; i < numCourses; i++) {
+            if (!inDegree[i])
+                q.push(i);
         }
         int cnt = 0;
-        while(!q.empty()) {
-            int node = q.front(); q.pop();
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
 
             cnt++;
 
-            for(auto it: adj[node]) {
+            for (auto it : adj[node]) {
                 inDegree[it]--;
-                if(!inDegree[it]) q.push(it);
+                if (!inDegree[it])
+                    q.push(it);
             }
         }
 
