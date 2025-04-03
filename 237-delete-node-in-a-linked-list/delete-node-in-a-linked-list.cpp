@@ -12,6 +12,6 @@ public:
         ListNode* nextNode = node -> next;
         swap(node->val, nextNode->val);
         node -> next = node -> next -> next;
-        delete(nextNode);
+  
     }
 };
