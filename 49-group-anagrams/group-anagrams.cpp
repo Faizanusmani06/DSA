@@ -1,14 +1,16 @@
 class Solution {
 public:
+
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
         vector<vector<string>> ans;
-        const int n = strs.size();
 
-        unordered_map<string, int> mp;
+        int n = strs.size();
+
+        map<string, int> mp;
+
         for(int i = 0; i < n; i++) {
             string str = strs[i];
             sort(str.begin(), str.end());
-
             if(!mp.contains(str)) {
                 ans.push_back({strs[i]});
                 mp[str] = ans.size() - 1;
@@ -16,7 +18,6 @@ public:
                 ans[mp[str]].push_back(strs[i]);
             }
         }
-
-        return ans;
+       return ans;
     }
 };
