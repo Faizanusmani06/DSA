@@ -1,37 +1,33 @@
 class MyHashSet {
-    vector<int> hashSet;
-    unordered_map<int, int> mpp;
+    vector<int> mp;
 
 public:
-    MyHashSet() {
-        hashSet = {};
-        mpp = {};
-    }
+    MyHashSet() { mp = {}; }
 
     void add(int key) {
-        if (mpp.find(key) != mpp.end())
-            return;
-
-        hashSet.push_back(key);
-        mpp[key] = hashSet.size() - 1;
+        if (!contains(key))
+            mp.push_back(key);
     }
 
     void remove(int key) {
-        if (mpp.find(key) == mpp.end())
-            return;
-        int index = mpp[key];
-
-        hashSet[index] = hashSet[hashSet.size() - 1];
-        hashSet.pop_back();
-
-        mpp.erase(key);
+        int i;
+        int n = mp.size();
+        if(n == 0) return;
+        for (i = 0; i < n; i++) {
+            if (mp[i] == key)
+                break;
+        }
+        if(i >= n) return;
+        mp[i] = mp[n-1];
+        mp.pop_back();
     }
 
     bool contains(int key) {
-        if (mpp.find(key) != mpp.end())
-            return true;
-        else
-            return false;
+        for (int i : mp) {
+            if (i == key)
+                return true;
+        }
+        return false;
     }
 };
 
